@@ -7,241 +7,107 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      background: #09090d;
-      color: #e5e5e5;
-      font-family: Arial, sans-serif;
-      min-height: 100vh;
-    }
+    body { background: #09090d; color: #e5e5e5; font-family: Arial, sans-serif; min-height: 100vh; }
 
-    /* ── Header ── */
     .header {
       padding: 16px 20px 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
       border-bottom: 1px solid #1e1e2a;
     }
-    .logo {
-      font-size: 26px;
-      color: #b87828;
-      font-weight: bold;
-      flex: 1;
-      min-width: 180px;
-    }
-    .logo small {
-      display: block;
-      font-size: 12px;
-      color: #888;
-      font-weight: normal;
-      margin-top: 2px;
-    }
+    .logo { font-size: 26px; color: #b87828; font-weight: bold; flex: 1; min-width: 180px; }
+    .logo small { display: block; font-size: 12px; color: #888; font-weight: normal; margin-top: 2px; }
     .refresh-btn {
-      background: #b87828;
-      color: #fff;
-      border: none;
-      padding: 9px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      transition: background 0.2s;
-      white-space: nowrap;
+      background: #b87828; color: #fff; border: none; padding: 9px 18px;
+      border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: bold;
+      transition: background 0.2s; white-space: nowrap;
     }
-    .refresh-btn:hover  { background: #d49030; }
+    .refresh-btn:hover    { background: #d49030; }
     .refresh-btn:disabled { background: #444; cursor: default; }
 
-    /* ── Info banner ── */
     .info-banner {
-      background: #13131c;
-      padding: 10px 20px;
-      font-size: 13px;
-      color: #999;
-      border-bottom: 1px solid #1e1e2a;
-      line-height: 1.5;
+      background: #13131c; padding: 10px 20px; font-size: 13px;
+      color: #999; border-bottom: 1px solid #1e1e2a; line-height: 1.5;
     }
     .info-banner strong { color: #b87828; }
 
-    /* ── Filters ── */
     .filters {
-      padding: 12px 20px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+      padding: 12px 20px; display: flex; gap: 8px; flex-wrap: wrap;
       border-bottom: 1px solid #1e1e2a;
     }
     .filter-btn {
-      background: #1e1e2a;
-      color: #ccc;
-      border: 1px solid #2e2e3e;
-      padding: 7px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: bold;
-      transition: background 0.15s, color 0.15s;
+      background: #1e1e2a; color: #ccc; border: 1px solid #2e2e3e;
+      padding: 7px 15px; border-radius: 8px; cursor: pointer;
+      font-size: 13px; font-weight: bold; transition: background 0.15s, color 0.15s;
     }
     .filter-btn:hover  { background: #2a2a3a; }
-    .filter-btn.active {
-      background: #b87828;
-      color: #fff;
-      border-color: #b87828;
-    }
+    .filter-btn.active { background: #b87828; color: #fff; border-color: #b87828; }
 
-    /* ── Status ── */
-    .status {
-      padding: 8px 20px;
-      font-size: 13px;
-      color: #666;
-      min-height: 30px;
-    }
+    .status { padding: 8px 20px; font-size: 13px; color: #666; min-height: 30px; }
 
-    /* ── Grid ── */
     .grid {
       padding: 12px 20px 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
-      gap: 13px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: 13px;
     }
 
-    /* ── Cards ── */
     .card {
-      background: #111118;
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid #1e1e2a;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      position: relative;
-      transition: border-color 0.2s;
+      background: #111118; padding: 16px; border-radius: 12px;
+      border: 1px solid #1e1e2a; display: flex; flex-direction: column;
+      gap: 5px; position: relative; transition: border-color 0.2s;
     }
-    .card:hover { border-color: #3a3a4a; }
-    .card.cheapest {
-      border-color: #b87828;
-      box-shadow: 0 0 0 1px #b87828 inset;
-    }
+    .card:hover   { border-color: #3a3a4a; }
+    .card.cheapest { border-color: #b87828; box-shadow: 0 0 0 1px #b87828 inset; }
 
     .cheapest-badge {
-      position: absolute;
-      top: 11px; right: 11px;
-      background: #b87828;
-      color: #fff;
-      font-size: 10px;
-      font-weight: bold;
-      padding: 3px 8px;
-      border-radius: 20px;
-      letter-spacing: 0.4px;
+      position: absolute; top: 11px; right: 11px;
+      background: #b87828; color: #fff; font-size: 10px; font-weight: bold;
+      padding: 3px 8px; border-radius: 20px;
     }
 
-    .route {
-      font-size: 17px;
-      font-weight: bold;
-      padding-right: 70px; /* avoid badge overlap */
-    }
-    .price {
-      font-size: 40px;
-      color: #b87828;
-      font-weight: bold;
-      line-height: 1;
-      margin: 3px 0 2px;
-    }
-    .price-note {
-      font-size: 11px;
-      color: #666;
-      margin-top: -2px;
-    }
-    .airline {
-      font-size: 13px;
-      color: #aaa;
-    }
+    .route       { font-size: 17px; font-weight: bold; padding-right: 80px; }
+    .dest-name   { font-size: 12px; color: #888; margin-top: 1px; }
+    .price       { font-size: 40px; color: #b87828; font-weight: bold; line-height: 1; margin: 3px 0 2px; }
+    .price-note  { font-size: 11px; color: #666; margin-top: -2px; }
+    .airline     { font-size: 13px; color: #aaa; }
 
-    /* Stop pill */
     .stops-pill {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: bold;
-      padding: 3px 10px;
-      border-radius: 20px;
-      width: fit-content;
-      margin-top: 3px;
+      display: inline-block; font-size: 12px; font-weight: bold;
+      padding: 3px 10px; border-radius: 20px; width: fit-content; margin-top: 3px;
     }
-    .stops-pill.nonstop   { background:#1a3a1a; color:#5fcc5f; border:1px solid #2a5a2a; }
-    .stops-pill.one-stop  { background:#2a2a10; color:#cccc40; border:1px solid #4a4a20; }
-    .stops-pill.multi     { background:#2a1a1a; color:#cc6060; border:1px solid #4a2a2a; }
+    .stops-pill.nonstop  { background:#1a3a1a; color:#5fcc5f; border:1px solid #2a5a2a; }
+    .stops-pill.one-stop { background:#2a2a10; color:#cccc40; border:1px solid #4a4a20; }
+    .stops-pill.multi    { background:#2a1a1a; color:#cc6060; border:1px solid #4a2a2a; }
+    .stops-pill.unknown  { background:#1e1e2a; color:#888;    border:1px solid #2e2e3e; }
 
-    /* Trip info row */
-    .trip-info {
-      font-size: 12px;
-      color: #888;
-      margin-top: 4px;
-      line-height: 1.6;
-    }
+    .trip-info { font-size: 12px; color: #888; margin-top: 4px; line-height: 1.6; }
     .trip-info span { color: #aaa; }
 
-    /* Actions */
-    .card-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
+    .card-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
     .verify-link, .alert-btn {
-      flex: 1;
-      min-width: 100px;
-      text-align: center;
-      padding: 9px 10px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-      text-decoration: none;
-      transition: background 0.15s;
-      display: block;
+      flex: 1; min-width: 100px; text-align: center; padding: 9px 10px;
+      border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer;
+      border: none; text-decoration: none; display: block; transition: background 0.15s;
     }
-    .verify-link {
-      background: #b87828;
-      color: #fff !important;
-    }
+    .verify-link { background: #b87828; color: #fff !important; }
     .verify-link:hover { background: #d49030; }
-    .alert-btn {
-      background: #1e1e2a;
-      color: #ccc;
-      border: 1px solid #2e2e3e;
-    }
+    .alert-btn { background: #1e1e2a; color: #ccc; border: 1px solid #2e2e3e; }
     .alert-btn:hover  { background: #2a2a3a; }
-    .alert-btn.alerted {
-      background: #1a3a1a;
-      color: #5fcc5f;
-      border-color: #2a5a2a;
-    }
+    .alert-btn.alerted { background: #1a3a1a; color: #5fcc5f; border-color: #2a5a2a; }
 
-    /* States */
     .state-msg {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 60px 20px;
-      color: #666;
-      font-size: 16px;
+      grid-column: 1 / -1; text-align: center;
+      padding: 60px 20px; color: #666; font-size: 16px;
     }
     .spinner {
-      display: inline-block;
-      width: 32px; height: 32px;
-      border: 3px solid #2e2e3e;
-      border-top-color: #b87828;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-bottom: 14px;
+      display: inline-block; width: 32px; height: 32px;
+      border: 3px solid #2e2e3e; border-top-color: #b87828;
+      border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 14px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Mobile */
     @media (max-width: 480px) {
-      .logo  { font-size: 20px; }
-      .grid  { padding: 10px 12px 20px; gap: 10px; }
-      .card  { padding: 14px; }
+      .logo { font-size: 20px; }
+      .grid { padding: 10px 12px 20px; gap: 10px; }
+      .card { padding: 14px; }
       .price { font-size: 34px; }
       .filters { padding: 10px 12px; }
       .filter-btn { padding: 7px 11px; font-size: 12px; }
@@ -258,11 +124,10 @@
   <button class="refresh-btn" id="refreshBtn" onclick="loadDeals()">Refresh</button>
 </div>
 
-<div class="info-banner" id="infoBanner">
-  Searching departures <strong>today → 60 days out</strong>, trip lengths
-  <strong>3, 5, 7, 10 &amp; 14 days</strong> — showing the cheapest combo per destination.
-  Prices from Duffel (live airline data). Click <strong>Search Google Flights</strong>
-  to verify — prices there may differ slightly due to dynamic pricing.
+<div class="info-banner">
+  Live prices from <strong>Google Flights</strong> — what you see here is what you'll see when you click through.
+  Covers departures in the <strong>next 60 days</strong>, weekend trips, week-long, and 2-week trips.
+  Prices update every few hours.
 </div>
 
 <div class="filters">
@@ -270,16 +135,14 @@
   <button class="filter-btn"        id="btn-nonstop" onclick="setFilter('nonstop')">Nonstop</button>
   <button class="filter-btn"        id="btn-1stop"   onclick="setFilter('1stop')">Max 1 Stop</button>
   <button class="filter-btn"        id="btn-cheap"   onclick="setFilter('cheap')">Under $250</button>
-  <button class="filter-btn"        id="btn-short"   onclick="setFilter('short')">Weekend (3–5 days)</button>
-  <button class="filter-btn"        id="btn-week"    onclick="setFilter('week')">Week+ (7–14 days)</button>
+  <button class="filter-btn"        id="btn-weekend" onclick="setFilter('weekend')">Weekends</button>
+  <button class="filter-btn"        id="btn-week"    onclick="setFilter('week')">Week trips</button>
+  <button class="filter-btn"        id="btn-2weeks"  onclick="setFilter('2weeks')">2-week trips</button>
 </div>
 
 <div class="status" id="status"></div>
-
-<div class="grid" id="grid">
-  <div class="state-msg">
-    <div class="spinner"></div><br>Searching flights across all dates…
-  </div>
+<div class="grid"  id="grid">
+  <div class="state-msg"><div class="spinner"></div><br>Loading deals…</div>
 </div>
 
 <script>
@@ -289,45 +152,42 @@
   let activeFilter = 'all';
   let alerts = {};
 
-  // Load persisted alerts
   try { alerts = JSON.parse(localStorage.getItem('okc-alerts') || '{}'); } catch(e) {}
 
-  // ── Helpers ──────────────────────────────────────────────────────────────
   function fmtDate(iso) {
     if (!iso) return '?';
     const [, m, d] = iso.split('-');
-    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    return `${MONTHS[+m - 1]} ${+d}`;
+    const M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return `${M[+m-1]} ${+d}`;
   }
 
   function stopsInfo(stops) {
-    if (stops === 0) return { cls: 'nonstop',  label: 'Nonstop' };
-    if (stops === 1) return { cls: 'one-stop', label: '1 Stop' };
-    return               { cls: 'multi',     label: `${stops} Stops` };
+    if (stops === 0)  return { cls: 'nonstop',  label: 'Nonstop' };
+    if (stops === 1)  return { cls: 'one-stop', label: '1 Stop'  };
+    if (stops >= 2)   return { cls: 'multi',    label: `${stops} Stops` };
+    return                   { cls: 'unknown',  label: 'See details' };
   }
 
   function saveAlerts() {
     try { localStorage.setItem('okc-alerts', JSON.stringify(alerts)); } catch(e) {}
   }
 
-  // ── Filter ───────────────────────────────────────────────────────────────
   function setFilter(f) {
     activeFilter = f;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    const btn = document.getElementById('btn-' + f);
-    if (btn) btn.classList.add('active');
+    document.getElementById('btn-' + f)?.classList.add('active');
     render();
   }
 
-  // ── Render ───────────────────────────────────────────────────────────────
   function render() {
     let deals = [...allDeals];
 
-    if (activeFilter === 'nonstop') deals = deals.filter(d => d.stops === 0);
-    if (activeFilter === '1stop')   deals = deals.filter(d => d.stops <= 1);
-    if (activeFilter === 'cheap')   deals = deals.filter(d => d.price < 250);
-    if (activeFilter === 'short')   deals = deals.filter(d => d.tripDays <= 5);
-    if (activeFilter === 'week')    deals = deals.filter(d => d.tripDays >= 7);
+    if (activeFilter === 'nonstop')  deals = deals.filter(d => d.stops === 0);
+    if (activeFilter === '1stop')    deals = deals.filter(d => d.stops != null && d.stops <= 1);
+    if (activeFilter === 'cheap')    deals = deals.filter(d => d.price < 250);
+    if (activeFilter === 'weekend')  deals = deals.filter(d => d.tripLabel === 'weekend');
+    if (activeFilter === 'week')     deals = deals.filter(d => d.tripLabel === 'week');
+    if (activeFilter === '2weeks')   deals = deals.filter(d => d.tripLabel === '2weeks');
 
     const grid   = document.getElementById('grid');
     const status = document.getElementById('status');
@@ -338,23 +198,27 @@
       return;
     }
 
-    const minPrice = deals[0].price; // sorted cheapest first
+    const minPrice = deals[0].price;
     status.textContent = `${deals.length} deal${deals.length !== 1 ? 's' : ''} found`;
 
-    grid.innerHTML = deals.map((d, i) => {
+    const tripLabels = { weekend: 'Weekend', week: '1-week trip', '2weeks': '2-week trip' };
+
+    grid.innerHTML = deals.map(d => {
       const isCheapest = d.price === minPrice;
-      const { cls, label } = stopsInfo(d.stops ?? (d.nonstop ? 0 : 1));
+      const { cls, label } = stopsInfo(d.stops);
       const alertKey  = `${d.destination}_${d.departureDate}`;
       const isAlerted = !!alerts[alertKey];
-      const tripLabel = d.tripDays ? `${d.tripDays}-day trip` : '';
+      const tripLabel = tripLabels[d.tripLabel] ?? '';
 
       return `
         <div class="card ${isCheapest ? 'cheapest' : ''}">
           ${isCheapest ? '<div class="cheapest-badge">⭐ CHEAPEST</div>' : ''}
           <div class="route">OKC → ${d.destination}</div>
+          ${d.destinationName && d.destinationName !== d.destination
+            ? `<div class="dest-name">${d.destinationName}</div>` : ''}
           <div class="price">$${d.price.toLocaleString()}</div>
           <div class="price-note">roundtrip · economy · 1 adult</div>
-          <div class="airline">${d.airline}</div>
+          <div class="airline">${d.airline || 'Various airlines'}</div>
           <div class="stops-pill ${cls}">${label}</div>
           <div class="trip-info">
             <span>${fmtDate(d.departureDate)} → ${fmtDate(d.returnDate)}</span>
@@ -364,7 +228,7 @@
             <a class="verify-link"
                href="${d.verifyUrl}"
                target="_blank" rel="noopener">
-              🔍 Search Google Flights
+              🔍 Book on Google Flights
             </a>
             <button class="alert-btn ${isAlerted ? 'alerted' : ''}"
                     onclick="toggleAlert(event,'${d.destination}','${d.departureDate}')">
@@ -375,12 +239,10 @@
     }).join('');
   }
 
-  // ── Alert toggle ─────────────────────────────────────────────────────────
   function toggleAlert(e, dest, depDate) {
     const key = `${dest}_${depDate}`;
     alerts[key] = !alerts[key];
     saveAlerts();
-
     const btn = e.currentTarget;
     if (alerts[key]) {
       btn.textContent = '✓ Saved!';
@@ -392,7 +254,6 @@
     }
   }
 
-  // ── Load ─────────────────────────────────────────────────────────────────
   async function loadDeals() {
     const btn    = document.getElementById('refreshBtn');
     const grid   = document.getElementById('grid');
@@ -403,23 +264,13 @@
     status.textContent = '';
     grid.innerHTML  = `
       <div class="state-msg">
-        <div class="spinner"></div><br>
-        Searching flights across all dates &amp; destinations…<br>
-        <small style="color:#555;margin-top:8px;display:block">This may take 30–60 seconds</small>
+        <div class="spinner"></div><br>Fetching live prices from Google Flights…
       </div>`;
 
     try {
       const r = await fetch(API);
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       allDeals = await r.json();
-
-      document.getElementById('infoBanner').innerHTML =
-        `Searched departures <strong>today → 60 days out</strong>, ` +
-        `trip lengths <strong>3, 5, 7, 10 &amp; 14 days</strong> — ` +
-        `showing <strong>cheapest combo per destination</strong>. ` +
-        `Click <strong>Search Google Flights</strong> to verify fares ` +
-        `(prices may vary slightly due to dynamic airline pricing).`;
-
       render();
     } catch (err) {
       grid.innerHTML = `
