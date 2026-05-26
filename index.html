@@ -1,44 +1,128 @@
-<!-- REPLACE ENTIRE index.html WITH THIS FILE -->
-<!DOCTYPE html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>OKC Flight Deals</title>
+
 <style>
-body{background:#09090d;color:#e5e5e5;font-family:Arial;margin:0}
-.header{padding:20px}.logo{font-size:34px;color:#b87828;font-weight:bold}
-.filters{padding:15px;display:flex;gap:10px;flex-wrap:wrap}
-button,a{background:#b87828;color:#fff;border:none;padding:10px 14px;border-radius:8px;text-decoration:none;cursor:pointer}
-.grid{padding:16px;display:grid;gap:15px}
-.card{background:#111118;padding:18px;border-radius:12px}
-.price{font-size:40px;color:#b87828;font-weight:bold}
-</style></head><body>
-<div class='header'><div class='logo'>✈ OKC Flight Deals</div><button onclick='loadDeals()'>Refresh</button></div>
-<div class='filters'>
-<button onclick="setFilter('all')">All</button>
-<button onclick="setFilter('nonstop')">Nonstop</button>
-<button onclick="setFilter('1stop')">Max 1 Stop</button>
-<button onclick="setFilter('cheap')">Under $250</button>
-</div>
-<div id='grid' class='grid'>Loading...</div>
-<script>
-const API='https://okc-flights-backend.onrender.com/api/deals';
-let allDeals=[]; let filter='all';
-function setFilter(f){filter=f;render();}
-function render(){
- let deals=[...allDeals];
- if(filter==='nonstop') deals=deals.filter(d=>d.stops===0);
- if(filter==='1stop') deals=deals.filter(d=>d.stops<=1);
- if(filter==='cheap') deals=deals.filter(d=>d.price<250);
- document.getElementById('grid').innerHTML=deals.map(d=>`
- <div class="card">
- <div>OKC → ${d.destination}</div>
- <div class="price">$${d.price}</div>
- <div>${d.airline}</div>
- <div>Stops: ${d.stops}</div>
- <div>${d.departureDate} → ${d.returnDate}</div>
- <div style="margin-top:10px;display:flex;gap:10px">
- <a href="${d.verifyUrl}" target="_blank">Check Similar Flights</a>
- <button onclick="alert('Alert saved for ${d.destination}')">Alert Me</button>
- </div></div>`).join('');
+
+body{
+margin:0;
+background:#09090d;
+color:#e5e5e5;
+font-family:Arial,sans-serif;
 }
-async function loadDeals(){const r=await fetch(API); allDeals=await r.json(); render();}
-loadDeals();
-</script></body></html>
+
+.header{
+padding:20px;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+font-size:34px;
+font-weight:bold;
+color:#b87828;
+}
+
+.sub{
+color:#999;
+margin-top:5px;
+}
+
+.btn{
+margin-top:15px;
+background:#b87828;
+color:white;
+border:none;
+padding:12px 18px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.filters{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+padding:15px;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.filter{
+padding:10px 16px;
+border-radius:999px;
+border:1px solid #b87828;
+cursor:pointer;
+}
+
+.filter.active{
+background:#b87828;
+}
+
+.grid{
+padding:16px;
+display:grid;
+gap:16px;
+}
+
+.card{
+background:#111118;
+border:1px solid rgba(255,255,255,.08);
+border-radius:12px;
+padding:18px;
+}
+
+.destination{
+font-size:24px;
+font-weight:bold;
+}
+
+.price{
+font-size:48px;
+font-weight:bold;
+color:#b87828;
+margin:10px 0;
+}
+
+.airline{
+color:#ccc;
+margin-bottom:8px;
+}
+
+.meta{
+line-height:1.7;
+color:#aaa;
+}
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:15px;
+}
+
+.verify{
+background:#7d1c09;
+color:white;
+padding:12px 15px;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.alert{
+background:#b87828;
+color:white;
+border:none;
+padding:12px 15px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.msg{
+text-align:center;
+padding:50px;
+color:#aaa
