@@ -16,19 +16,26 @@
 
     /* ── Header ── */
     .header {
-      padding: 18px 20px 12px;
+      padding: 16px 20px 12px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
       border-bottom: 1px solid #1e1e2a;
     }
     .logo {
-      font-size: 28px;
+      font-size: 26px;
       color: #b87828;
       font-weight: bold;
       flex: 1;
-      min-width: 200px;
+      min-width: 180px;
+    }
+    .logo small {
+      display: block;
+      font-size: 12px;
+      color: #888;
+      font-weight: normal;
+      margin-top: 2px;
     }
     .refresh-btn {
       background: #b87828;
@@ -40,23 +47,25 @@
       font-size: 14px;
       font-weight: bold;
       transition: background 0.2s;
+      white-space: nowrap;
     }
-    .refresh-btn:hover { background: #d49030; }
-    .refresh-btn:disabled { background: #555; cursor: default; }
+    .refresh-btn:hover  { background: #d49030; }
+    .refresh-btn:disabled { background: #444; cursor: default; }
 
-    /* ── Search window banner ── */
-    .dates-banner {
+    /* ── Info banner ── */
+    .info-banner {
       background: #13131c;
       padding: 10px 20px;
       font-size: 13px;
-      color: #aaa;
+      color: #999;
       border-bottom: 1px solid #1e1e2a;
+      line-height: 1.5;
     }
-    .dates-banner span { color: #b87828; font-weight: bold; }
+    .info-banner strong { color: #b87828; }
 
     /* ── Filters ── */
     .filters {
-      padding: 14px 20px;
+      padding: 12px 20px;
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
@@ -66,103 +75,112 @@
       background: #1e1e2a;
       color: #ccc;
       border: 1px solid #2e2e3e;
-      padding: 8px 16px;
+      padding: 7px 15px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 13px;
       font-weight: bold;
       transition: background 0.15s, color 0.15s;
     }
-    .filter-btn:hover { background: #2a2a3a; }
+    .filter-btn:hover  { background: #2a2a3a; }
     .filter-btn.active {
       background: #b87828;
       color: #fff;
       border-color: #b87828;
     }
 
-    /* ── Status bar ── */
+    /* ── Status ── */
     .status {
-      padding: 10px 20px;
+      padding: 8px 20px;
       font-size: 13px;
-      color: #888;
-      min-height: 34px;
+      color: #666;
+      min-height: 30px;
     }
 
     /* ── Grid ── */
     .grid {
-      padding: 16px 20px;
+      padding: 12px 20px 24px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+      gap: 13px;
     }
 
     /* ── Cards ── */
     .card {
       background: #111118;
-      padding: 18px;
+      padding: 16px;
       border-radius: 12px;
       border: 1px solid #1e1e2a;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
       position: relative;
       transition: border-color 0.2s;
     }
     .card:hover { border-color: #3a3a4a; }
-
-    /* Cheapest badge */
     .card.cheapest {
       border-color: #b87828;
       box-shadow: 0 0 0 1px #b87828 inset;
     }
+
     .cheapest-badge {
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 11px; right: 11px;
       background: #b87828;
       color: #fff;
       font-size: 10px;
       font-weight: bold;
       padding: 3px 8px;
       border-radius: 20px;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
     }
 
     .route {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: bold;
-      color: #e5e5e5;
+      padding-right: 70px; /* avoid badge overlap */
     }
     .price {
-      font-size: 42px;
+      font-size: 40px;
       color: #b87828;
       font-weight: bold;
       line-height: 1;
-      margin: 4px 0;
+      margin: 3px 0 2px;
+    }
+    .price-note {
+      font-size: 11px;
+      color: #666;
+      margin-top: -2px;
     }
     .airline {
       font-size: 13px;
       color: #aaa;
     }
-    .stops-tag {
+
+    /* Stop pill */
+    .stops-pill {
       display: inline-block;
       font-size: 12px;
       font-weight: bold;
       padding: 3px 10px;
       border-radius: 20px;
       width: fit-content;
-      margin-top: 2px;
+      margin-top: 3px;
     }
-    .stops-tag.nonstop { background: #1a3a1a; color: #5fcc5f; border: 1px solid #2a5a2a; }
-    .stops-tag.one-stop { background: #2a2a10; color: #cccc40; border: 1px solid #4a4a20; }
-    .stops-tag.multi-stop { background: #2a1a1a; color: #cc6060; border: 1px solid #4a2a2a; }
+    .stops-pill.nonstop   { background:#1a3a1a; color:#5fcc5f; border:1px solid #2a5a2a; }
+    .stops-pill.one-stop  { background:#2a2a10; color:#cccc40; border:1px solid #4a4a20; }
+    .stops-pill.multi     { background:#2a1a1a; color:#cc6060; border:1px solid #4a2a2a; }
 
-    .travel-dates {
+    /* Trip info row */
+    .trip-info {
       font-size: 12px;
       color: #888;
       margin-top: 4px;
+      line-height: 1.6;
     }
+    .trip-info span { color: #aaa; }
 
+    /* Actions */
     .card-actions {
       display: flex;
       gap: 8px;
@@ -171,9 +189,9 @@
     }
     .verify-link, .alert-btn {
       flex: 1;
-      min-width: 110px;
+      min-width: 100px;
       text-align: center;
-      padding: 9px 12px;
+      padding: 9px 10px;
       border-radius: 8px;
       font-size: 13px;
       font-weight: bold;
@@ -181,10 +199,11 @@
       border: none;
       text-decoration: none;
       transition: background 0.15s;
+      display: block;
     }
     .verify-link {
       background: #b87828;
-      color: #fff;
+      color: #fff !important;
     }
     .verify-link:hover { background: #d49030; }
     .alert-btn {
@@ -192,14 +211,14 @@
       color: #ccc;
       border: 1px solid #2e2e3e;
     }
-    .alert-btn:hover { background: #2a2a3a; }
+    .alert-btn:hover  { background: #2a2a3a; }
     .alert-btn.alerted {
       background: #1a3a1a;
       color: #5fcc5f;
       border-color: #2a5a2a;
     }
 
-    /* ── Loading / empty states ── */
+    /* States */
     .state-msg {
       grid-column: 1 / -1;
       text-align: center;
@@ -214,117 +233,141 @@
       border-top-color: #b87828;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── Mobile ── */
+    /* Mobile */
     @media (max-width: 480px) {
-      .logo { font-size: 22px; }
-      .grid { padding: 12px; gap: 10px; }
-      .card { padding: 14px; }
-      .price { font-size: 36px; }
-      .filters { padding: 10px 12px; gap: 6px; }
-      .filter-btn { padding: 7px 12px; font-size: 12px; }
+      .logo  { font-size: 20px; }
+      .grid  { padding: 10px 12px 20px; gap: 10px; }
+      .card  { padding: 14px; }
+      .price { font-size: 34px; }
+      .filters { padding: 10px 12px; }
+      .filter-btn { padding: 7px 11px; font-size: 12px; }
     }
   </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="logo">✈ OKC Flight Deals</div>
+  <div class="logo">
+    ✈ OKC Flight Deals
+    <small>Cheapest roundtrip fares from Oklahoma City · 1 adult economy</small>
+  </div>
   <button class="refresh-btn" id="refreshBtn" onclick="loadDeals()">Refresh</button>
 </div>
 
-<div class="dates-banner" id="datesBanner">Loading search dates…</div>
+<div class="info-banner" id="infoBanner">
+  Searching departures <strong>today → 60 days out</strong>, trip lengths
+  <strong>3, 5, 7, 10 &amp; 14 days</strong> — showing the cheapest combo per destination.
+  Prices from Duffel (live airline data). Click <strong>Search Google Flights</strong>
+  to verify — prices there may differ slightly due to dynamic pricing.
+</div>
 
 <div class="filters">
-  <button class="filter-btn active" id="btn-all"      onclick="setFilter('all')">All</button>
-  <button class="filter-btn"        id="btn-nonstop"  onclick="setFilter('nonstop')">Nonstop</button>
-  <button class="filter-btn"        id="btn-1stop"    onclick="setFilter('1stop')">Max 1 Stop</button>
-  <button class="filter-btn"        id="btn-cheap"    onclick="setFilter('cheap')">Under $250</button>
+  <button class="filter-btn active" id="btn-all"     onclick="setFilter('all')">All</button>
+  <button class="filter-btn"        id="btn-nonstop" onclick="setFilter('nonstop')">Nonstop</button>
+  <button class="filter-btn"        id="btn-1stop"   onclick="setFilter('1stop')">Max 1 Stop</button>
+  <button class="filter-btn"        id="btn-cheap"   onclick="setFilter('cheap')">Under $250</button>
+  <button class="filter-btn"        id="btn-short"   onclick="setFilter('short')">Weekend (3–5 days)</button>
+  <button class="filter-btn"        id="btn-week"    onclick="setFilter('week')">Week+ (7–14 days)</button>
 </div>
 
 <div class="status" id="status"></div>
-<div class="grid"  id="grid"><div class="state-msg"><div class="spinner"></div><br>Loading deals…</div></div>
+
+<div class="grid" id="grid">
+  <div class="state-msg">
+    <div class="spinner"></div><br>Searching flights across all dates…
+  </div>
+</div>
 
 <script>
   const API = 'https://okc-flights-backend.onrender.com/api/deals';
 
   let allDeals = [];
-  let filter   = 'all';
-  let alerts   = JSON.parse(localStorage.getItem('okc-alerts') || '{}');
+  let activeFilter = 'all';
+  let alerts = {};
 
-  // ── Helpers ──────────────────────────────────────────────
+  // Load persisted alerts
+  try { alerts = JSON.parse(localStorage.getItem('okc-alerts') || '{}'); } catch(e) {}
+
+  // ── Helpers ──────────────────────────────────────────────────────────────
   function fmtDate(iso) {
     if (!iso) return '?';
-    const [y, m, d] = iso.split('-');
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    return `${months[+m - 1]} ${+d}`;
+    const [, m, d] = iso.split('-');
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return `${MONTHS[+m - 1]} ${+d}`;
   }
 
-  function stopsLabel(stops) {
-    if (stops === 0) return { cls: 'nonstop',    text: 'Nonstop' };
-    if (stops === 1) return { cls: 'one-stop',   text: '1 Stop'  };
-    return               { cls: 'multi-stop',  text: `${stops} Stops` };
+  function stopsInfo(stops) {
+    if (stops === 0) return { cls: 'nonstop',  label: 'Nonstop' };
+    if (stops === 1) return { cls: 'one-stop', label: '1 Stop' };
+    return               { cls: 'multi',     label: `${stops} Stops` };
   }
 
   function saveAlerts() {
-    localStorage.setItem('okc-alerts', JSON.stringify(alerts));
+    try { localStorage.setItem('okc-alerts', JSON.stringify(alerts)); } catch(e) {}
   }
 
-  // ── Filter ───────────────────────────────────────────────
+  // ── Filter ───────────────────────────────────────────────────────────────
   function setFilter(f) {
-    filter = f;
+    activeFilter = f;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('btn-' + f)?.classList.add('active');
+    const btn = document.getElementById('btn-' + f);
+    if (btn) btn.classList.add('active');
     render();
   }
 
-  // ── Render ───────────────────────────────────────────────
+  // ── Render ───────────────────────────────────────────────────────────────
   function render() {
     let deals = [...allDeals];
 
-    if (filter === 'nonstop') deals = deals.filter(d => d.stops === 0);
-    if (filter === '1stop')   deals = deals.filter(d => d.stops <= 1);
-    if (filter === 'cheap')   deals = deals.filter(d => d.price < 250);
+    if (activeFilter === 'nonstop') deals = deals.filter(d => d.stops === 0);
+    if (activeFilter === '1stop')   deals = deals.filter(d => d.stops <= 1);
+    if (activeFilter === 'cheap')   deals = deals.filter(d => d.price < 250);
+    if (activeFilter === 'short')   deals = deals.filter(d => d.tripDays <= 5);
+    if (activeFilter === 'week')    deals = deals.filter(d => d.tripDays >= 7);
 
     const grid   = document.getElementById('grid');
     const status = document.getElementById('status');
 
     if (!deals.length) {
-      grid.innerHTML   = '<div class="state-msg">No deals match this filter.</div>';
+      grid.innerHTML = '<div class="state-msg">No deals match this filter.</div>';
       status.textContent = '';
       return;
     }
 
-    const minPrice = deals[0].price; // already sorted cheapest first
-
-    status.textContent = `Showing ${deals.length} deal${deals.length !== 1 ? 's' : ''}`;
+    const minPrice = deals[0].price; // sorted cheapest first
+    status.textContent = `${deals.length} deal${deals.length !== 1 ? 's' : ''} found`;
 
     grid.innerHTML = deals.map((d, i) => {
       const isCheapest = d.price === minPrice;
-      const { cls, text } = stopsLabel(d.stops ?? (d.nonstop ? 0 : 1));
-      const alertKey = d.destination + '_' + d.departureDate;
+      const { cls, label } = stopsInfo(d.stops ?? (d.nonstop ? 0 : 1));
+      const alertKey  = `${d.destination}_${d.departureDate}`;
       const isAlerted = !!alerts[alertKey];
+      const tripLabel = d.tripDays ? `${d.tripDays}-day trip` : '';
 
       return `
         <div class="card ${isCheapest ? 'cheapest' : ''}">
           ${isCheapest ? '<div class="cheapest-badge">⭐ CHEAPEST</div>' : ''}
           <div class="route">OKC → ${d.destination}</div>
           <div class="price">$${d.price.toLocaleString()}</div>
+          <div class="price-note">roundtrip · economy · 1 adult</div>
           <div class="airline">${d.airline}</div>
-          <div class="stops-tag ${cls}">${text}</div>
-          <div class="travel-dates">
-            ✈ Depart ${fmtDate(d.departureDate)} &nbsp;·&nbsp; Return ${fmtDate(d.returnDate)}
+          <div class="stops-pill ${cls}">${label}</div>
+          <div class="trip-info">
+            <span>${fmtDate(d.departureDate)} → ${fmtDate(d.returnDate)}</span>
+            ${tripLabel ? ` · ${tripLabel}` : ''}
           </div>
           <div class="card-actions">
-            <a class="verify-link" href="${d.verifyUrl}" target="_blank" rel="noopener">
-              Check on Google Flights
+            <a class="verify-link"
+               href="${d.verifyUrl}"
+               target="_blank" rel="noopener">
+              🔍 Search Google Flights
             </a>
             <button class="alert-btn ${isAlerted ? 'alerted' : ''}"
-                    id="alert-${d.destination}-${i}"
-                    onclick="toggleAlert(event,'${d.destination}','${d.departureDate}',${i})">
+                    onclick="toggleAlert(event,'${d.destination}','${d.departureDate}')">
               ${isAlerted ? '🔔 Alerted' : '🔕 Alert Me'}
             </button>
           </div>
@@ -332,58 +375,61 @@
     }).join('');
   }
 
-  // ── Alert toggle (preserved across refreshes) ─────────────
-  function toggleAlert(e, dest, depDate, idx) {
-    const key = dest + '_' + depDate;
+  // ── Alert toggle ─────────────────────────────────────────────────────────
+  function toggleAlert(e, dest, depDate) {
+    const key = `${dest}_${depDate}`;
     alerts[key] = !alerts[key];
     saveAlerts();
 
     const btn = e.currentTarget;
-    btn.textContent  = alerts[key] ? '🔔 Alerted' : '🔕 Alert Me';
-    btn.classList.toggle('alerted', alerts[key]);
-
     if (alerts[key]) {
-      const orig = btn.textContent;
       btn.textContent = '✓ Saved!';
-      setTimeout(() => { btn.textContent = orig; }, 1200);
+      btn.classList.add('alerted');
+      setTimeout(() => { btn.textContent = '🔔 Alerted'; }, 1200);
+    } else {
+      btn.textContent = '🔕 Alert Me';
+      btn.classList.remove('alerted');
     }
   }
 
-  // ── Load ─────────────────────────────────────────────────
+  // ── Load ─────────────────────────────────────────────────────────────────
   async function loadDeals() {
-    const refreshBtn = document.getElementById('refreshBtn');
-    const grid       = document.getElementById('grid');
-    const status     = document.getElementById('status');
-    const banner     = document.getElementById('datesBanner');
+    const btn    = document.getElementById('refreshBtn');
+    const grid   = document.getElementById('grid');
+    const status = document.getElementById('status');
 
-    refreshBtn.disabled    = true;
-    refreshBtn.textContent = 'Loading…';
-    status.textContent     = '';
-    grid.innerHTML         = '<div class="state-msg"><div class="spinner"></div><br>Searching flights…</div>';
+    btn.disabled    = true;
+    btn.textContent = 'Loading…';
+    status.textContent = '';
+    grid.innerHTML  = `
+      <div class="state-msg">
+        <div class="spinner"></div><br>
+        Searching flights across all dates &amp; destinations…<br>
+        <small style="color:#555;margin-top:8px;display:block">This may take 30–60 seconds</small>
+      </div>`;
 
     try {
       const r = await fetch(API);
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       allDeals = await r.json();
 
-      // Show search window from first deal
-      if (allDeals.length) {
-        const dep = fmtDate(allDeals[0].departureDate);
-        const ret = fmtDate(allDeals[0].returnDate);
-        banner.innerHTML =
-          `Search window: <span>Depart ${dep}</span> &nbsp;·&nbsp; <span>Return ${ret}</span>` +
-          ` &nbsp;·&nbsp; roundtrip economy from OKC · 1 adult`;
-      } else {
-        banner.textContent = 'No deals found.';
-      }
+      document.getElementById('infoBanner').innerHTML =
+        `Searched departures <strong>today → 60 days out</strong>, ` +
+        `trip lengths <strong>3, 5, 7, 10 &amp; 14 days</strong> — ` +
+        `showing <strong>cheapest combo per destination</strong>. ` +
+        `Click <strong>Search Google Flights</strong> to verify fares ` +
+        `(prices may vary slightly due to dynamic airline pricing).`;
 
       render();
     } catch (err) {
-      grid.innerHTML = `<div class="state-msg">⚠️ Failed to load deals.<br><small>${err.message}</small></div>`;
-      banner.textContent = '';
+      grid.innerHTML = `
+        <div class="state-msg">
+          ⚠️ Failed to load deals.<br>
+          <small style="color:#555">${err.message}</small>
+        </div>`;
     } finally {
-      refreshBtn.disabled    = false;
-      refreshBtn.textContent = 'Refresh';
+      btn.disabled    = false;
+      btn.textContent = 'Refresh';
     }
   }
 
