@@ -1,27 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>OKC Flight Deals</title>
+
 <style>
-body{margin:0;background:#0a0a0f;color:#e8e0d0;font-family:Arial,sans-serif}
-.header{padding:20px;border-bottom:1px solid rgba(255,255,255,.08)}
-.logo{font-size:28px;color:#b87828;font-weight:bold}
-.sub{color:#999}
-.btn{margin-top:15px;padding:12px 16px;background:#b87828;border:none;border-radius:6px;font-weight:bold}
-.grid{padding:16px;display:grid;gap:14px}
-.card{border:1px solid rgba(255,255,255,.08);padding:16px;border-radius:10px}
-.price{font-size:38px;color:#b87828;font-weight:bold}
-.msg{text-align:center;padding:40px;color:#aaa}
-.err{color:#ff7b7b;white-space:pre-wrap}
+body{
+background:#09090d;
+color:#e5e5e5;
+font-family:Arial,sans-serif;
+margin:0;
+}
+
+.header{
+padding:20px;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+font-size:34px;
+font-weight:bold;
+color:#b87828;
+}
+
+.sub{
+color:#999;
+margin-top:4px;
+}
+
+.btn{
+background:#b87828;
+border:none;
+color:white;
+padding:12px 18px;
+border-radius:8px;
+font-weight:bold;
+margin-top:16px;
+cursor:pointer;
+}
+
+.filters{
+padding:15px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.filter{
+padding:10px 15px;
+border:1px solid #b87828;
+border-radius:999px;
+cursor:pointer;
+}
+
+.grid{
+padding:16px;
+display:grid;
+gap:15px;
+}
+
+.card{
+background:#111118;
+border:1px solid rgba(255,255,255,.08);
+border-radius:12px;
+padding:18px;
+}
+
+.price{
+font-size:42px;
+font-weight:bold;
+color:#b87828;
+margin:10px 0;
+}
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:14px;
+}
+
+.verify{
+background:#b87828;
+color:white;
+padding:10px 14px;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.alert{
+background:#222;
+border:none;
+color:white;
+padding:10px 14px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.msg{
+text-align:center;
+padding:50px;
+color:#aaa;
+}
 </style>
 </head>
+
 <body>
+
 <div class="header">
 <div class="logo">✈ OKC Flight Deals</div>
-<div class="sub">Powered by Render + Duffel</div>
-<button class="btn" onclick="loadDeals()">Refresh Deals</button>
+<div class="sub">Powered by Duffel + Render</div>
+
+<button class="btn" onclick="loadDeals()">
+Refresh Deals
+</button>
+</div>
+
+<div class="filters">
+<div class="filter" onclick="setFilter('all')">
+ALL
+</div>
+
+<div class="filter" onclick="setFilter('nonstop')">
+NONSTOP
+</div>
+
+<div class="filter" onclick="setFilter('cheap')">
+UNDER $250
+</div>
 </div>
 
 <div id="grid" class="grid">
@@ -29,59 +138,146 @@ body{margin:0;background:#0a0a0f;color:#e8e0d0;font-family:Arial,sans-serif}
 </div>
 
 <script>
-const API="https://okc-flights-backend.onrender.com/api/deals";
+
+const API =
+"https://okc-flights-backend.onrender.com/api/deals";
+
+let allDeals = [];
+let currentFilter = "all";
+
+function setFilter(filter){
+currentFilter = filter;
+renderDeals();
+}
+
+function createAlert(destination,price){
+
+const alerts =
+JSON.parse(
+localStorage.getItem("okcAlerts") || "[]"
+);
+
+alerts.push({
+destination,
+price
+});
+
+localStorage.setItem(
+"okcAlerts",
+JSON.stringify(alerts)
+);
+
+alert(
+`Alert saved for ${destination} under $${price}`
+);
+}
+
+function renderDeals(){
+
+let deals = [...allDeals];
+
+if(currentFilter==="nonstop"){
+deals = deals.filter(d=>d.nonstop);
+}
+
+if(currentFilter==="cheap"){
+deals = deals.filter(d=>d.price<250);
+}
+
+const grid =
+document.getElementById("grid");
+
+if(!deals.length){
+grid.innerHTML =
+'<div class="msg">No deals found.</div>';
+return;
+}
+
+grid.innerHTML = deals.map(d=>`
+
+<div class="card">
+
+<div>
+OKC → ${d.destination}
+</div>
+
+<div class="price">
+$${d.price}
+</div>
+
+<div>
+${d.airline}
+</div>
+
+<div style="margin-top:10px">
+
+${d.nonstop ? "✓ Nonstop" : "1+ Stops"}
+
+<br>
+
+Depart:
+${d.departureDate}
+
+<br>
+
+Return:
+${d.returnDate}
+
+</div>
+
+<div class="actions">
+
+<a
+class="verify"
+href="${d.verifyUrl}"
+target="_blank"
+>
+Verify Fare
+</a>
+
+<button
+class="alert"
+onclick="createAlert('${d.destination}',${d.price})"
+>
+Alert Me
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+}
 
 async function loadDeals(){
- const grid=document.getElementById('grid');
- grid.innerHTML='<div class="msg">Loading live airfare deals...</div>';
 
- try{
-   const res=await fetch(API);
-   const text=await res.text();
+const grid =
+document.getElementById("grid");
 
-   let deals=[];
-   try{
-      deals=JSON.parse(text);
-   }catch(e){
-      grid.innerHTML=`<div class="msg err">Backend did not return JSON:\n${text}</div>`;
-      return;
-   }
+grid.innerHTML =
+'<div class="msg">Loading airfare deals...</div>';
 
-   if(!Array.isArray(deals)){
-      grid.innerHTML=`<div class="msg err">Unexpected response:\n${JSON.stringify(deals,null,2)}</div>`;
-      return;
-   }
+try{
 
-   if(deals.length===0){
-      grid.innerHTML=`<div class="msg err">
-No deals returned by backend.
+const res =
+await fetch(API);
 
-Your frontend is working.
-Your backend is responding.
-The issue is inside server.js / Duffel API processing.
+allDeals =
+await res.json();
 
-Open:
-https://okc-flights-backend.onrender.com/api/deals
-and check Render logs.
-      </div>`;
-      return;
-   }
+renderDeals();
 
-   grid.innerHTML=deals.map(d=>`
-      <div class="card">
-        <div>OKC → ${d.destination}</div>
-        <div class="price">$${d.price}</div>
-        <div>${d.airline||''}</div>
-        <div>${d.nonstop?'✓ Nonstop':'1+ Stops'}<br>
-        Depart: ${d.departureDate}<br>
-        Return: ${d.returnDate}</div>
-      </div>
-   `).join('');
- }catch(err){
-   grid.innerHTML=`<div class="msg err">${err}</div>`;
- }
+}catch(err){
+
+grid.innerHTML =
+`<div class="msg">${err}</div>`;
+
 }
+}
+
 loadDeals();
+
 </script>
+
 </body>
 </html>
